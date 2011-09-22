@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.paissad</groupId>
+  <artifactId>waqtsalat-service</artifactId>
+  <packaging>war</packaging>
+
+  <version>0.0.1-beta</version>
+  <name>WaqtSalat Service</name>
+  <url>http://paissad.github.com/waqtsalat-service</url>
+  <description>A web service which returns muslim prayers times of most cities/countries in JSON or XML format.</description>
+  <inceptionYear>2011</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>GNU GENERAL PUBLIC LICENSE version 3 (GPLv3)</name>
+      <url>http://www.gnu.org/licenses/</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>paissad</id>
+      <name>Papa Issa DIAKHATE</name>
+      <email>paissad@gmail.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>git://github.com/paissad/waqtsalat-service.git</connection>
+    <url>git://github.com/paissad/waqtsalat-service.git</url>
+  </scm>
+
+  <issueManagement>
+    <url>https://github.com/paissad/waqtsalat-service/issues</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compile.source>1.6</maven.compile.source>
+    <maven.compile.target>1.6</maven.compile.target>
+    <maven.compile.optimize>true</maven.compile.optimize>
+    <maven.compile.deprecation>true</maven.compile.deprecation>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.dspace.dependencies</groupId>
+    	<artifactId>dspace-geoip</artifactId>
+    	<version>1.2.3</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.h2database</groupId>
+    	<artifactId>h2</artifactId>
+    	<version>1.3.160</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-api</artifactId>
+    	<version>1.6.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>ch.qos.logback</groupId>
+    	<artifactId>logback-core</artifactId>
+    	<version>0.9.29</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>ch.qos.logback</groupId>
+    	<artifactId>logback-classic</artifactId>
+    	<version>0.9.29</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>args4j</groupId>
+    	<artifactId>args4j</artifactId>
+    	<version>2.0.16</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>3.0.1</version>
+    	<type>jar</type>
+    	<scope>provided</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.ant</groupId>
+    	<artifactId>ant</artifactId>
+    	<version>1.8.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>waqtsalat-service</finalName>
+  </build>
+
+</project>
