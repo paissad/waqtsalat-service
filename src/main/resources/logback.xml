@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+
+  <!-- DEFINITIONS OF SOME PROPERTIES, DEFINES AND RULES ... ================================== -->
+
+  <!-- The directory where to place the log file -->
+  <define name="logDir" class="net.paissad.waqtsalat.service.logging.LogDirDefiner" />
+
+  <!-- The name of the log file -->
+  <define name="logFileName" class="net.paissad.waqtsalat.service.logging.LogFileNameDefiner" />
+
+  <!-- The max file size before rolling the log file -->
+  <define name="maxFileSizeBeforeRolling" class="net.paissad.waqtsalat.service.logging.RollingFileSizeDefiner" />
+
+  <property name="completeLogPath" value="${logDir}${file.separator}${logFileName}" />
+
+  <!-- Appenders available for this logger configuration -->
+  <property name="stdout_appender" value="STDOUT" />
+  <property name="file_appender" value="FILE" />
+  <property name="file_rolling_appender" value="FILE_ROTATE" />
+
+  <conversionRule conversionWord="colorLevel" converterClass="net.paissad.waqtsalat.service.logging.LogColorConverter" />
+
+  <!-- END OF DEFINES, PROPERTIES, RULES SETTINGS ! =========================================== -->
+
+  <!-- LIST OF APPENDERS ... ================================================================== -->
+
+  <appender name="${stdout_appender}" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>TRACE</level>
+    </filter>
+    <encoder>
+      class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>%date{ISO8601} [%thread] %-5colorLevel %-55(%logger{36}.%M \(%-4L\)) - %m %ex{full}%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="${file_appender}" class="ch.qos.logback.core.FileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+    <file>${completeLogPath}</file>
+    <append>false</append>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%date{ISO8601} [%thread] %-5level %-55(%logger{36}.%M \(%-4L\)) - %m %ex{full}%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- If unlimited growth of log file is not desired, then use the ${file_rolling_appender} instead 
+    of the ${file_appender}. -->
+  <!-- This appender will roll the log file after the specified size from ${maxFileSizeBeforeRolling} 
+    and will keep a maximum of 5 old and compressed logs. -->
+  <appender name="${file_rolling_appender}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+    <file>${completeLogPath}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${completeLogPath}.%i.zip</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>5</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>${maxFileSizeBeforeRolling}</maxFileSize>
+    </triggeringPolicy>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%date{ISO8601} [%thread] %-5level %-55(%logger{36}.%M \(%-4L\)) - %m %ex{full}%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- END OF APPENDERS LIST ================================================================== -->
+
+  <!-- ROOT LOG LEVEL ========================================================================= -->
+
+  <root level="TRACE">
+    <appender-ref ref="${stdout_appender}" />
+    <!-- <appender-ref ref="${file_appender}" /> -->
+    <appender-ref ref="${file_rolling_appender}" />
+  </root>
+
+  <!-- END OF ROOT LOG LEVEL SETTINGS ========================================================= -->
+
+</configuration>
