@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:x="http://waqtsalat-service.paissad.net">
+
+<f:view>
+  <h:head>
+    <style type="text/css">
+c1 {
+	color: red;
+}
+</style>
+    <ui:include src="/common/common_header.xhtml" />
+    <title>#{i18n.Registration}</title>
+  </h:head>
+  <h:body>
+    <h:messages showDetail="true" errorClass="c1" />
+    <h:form>
+      <h:panelGrid border="1" columns="2">
+        <h:outputLabel value="#{i18n.Firstname}" for="firstname" />
+        <h:inputText id="firstname" value="#{user.firstName}" required="true"></h:inputText>
+
+        <h:outputLabel value="#{i18n.Lastname}" for="lastname" />
+        <h:inputText id="lastname" value="#{user.lastName}" required="true"></h:inputText>
+
+        <h:outputLabel value="#{i18n.Nickname}" for="nickname" />
+        <h:inputText id="nickname" value="#{user.nickName}" required="true"></h:inputText>
+
+        <h:outputLabel value="#{i18n.Password}" for="password" />
+        <h:inputSecret id="password" binding="#{password}" value="#{user.password}" required="true"></h:inputSecret>
+
+        <h:outputLabel value="#{i18n['Password.confirmation']}" for="confirm_password" />
+        <h:inputSecret id="confirm_password" required="true">
+          <f:validator for="confirm_password" validatorId="passwordValidator" />
+          <f:attribute name="password" value="#{password.value}" />
+        </h:inputSecret>
+
+        <h:commandButton id="register" value="#{i18n.Register}" action="#{user.register()}" />
+        <h:message for="register" style="color: green;" />
+      </h:panelGrid>
+    </h:form>
+    <x:copyright />
+  </h:body>
+</f:view>
+</html>

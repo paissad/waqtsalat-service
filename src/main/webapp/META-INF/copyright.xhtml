@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+  <f:view>
+    <ui:include src="/common/common_header.xhtml" />
+    <ui:component>
+    #{i18n.Copyright} &copy; #{time.copyrightDate}. <h:outputLink value="http://github.com/paissad/waqtsalat-service">
+        <h:outputText value="Waqtsalat-Service" />
+      </h:outputLink> &quot;#{i18n.All_rights_reserved}&quot;
+    </ui:component>
+  </f:view>
+</h:body>
+</html>
