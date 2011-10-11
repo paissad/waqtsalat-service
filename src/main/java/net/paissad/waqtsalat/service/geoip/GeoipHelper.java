@@ -67,7 +67,7 @@ public class GeoipHelper {
         } else if (type == GEOIPTYPE.WORLD_CITIES) {
             url = GEOIP_WORLDCITIES_URL;
         }
-        HttpUtils.downloadFile(url, outputFile);
+        HttpUtils.downloadFile(url, outputFile, null);
     }
 
     // _________________________________________________________________________

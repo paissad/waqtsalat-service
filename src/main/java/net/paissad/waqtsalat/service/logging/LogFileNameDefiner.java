@@ -42,15 +42,14 @@ public class LogFileNameDefiner extends PropertyDefinerBase {
     /**
      * Sets the name of the log file.
      * <p>
-     * <b>Note</b>: Do not forget to reload the logger after the use of this
+     * <b>NOTE</b>: Do not forget to reload the logger after the use of this
      * function in order to make changes effective.
      * </p>
      * 
-     * @param logFileName
-     *            - The name of the log file to use.
+     * @param logFileName - The name of the log file to use.
      * @see LogReloader#reload()
      */
-    public static void setLogFileName(String logFileName) {
+    public static void setLogFileName(final String logFileName) {
         LogFileNameDefiner.logFileName = logFileName;
     }
 

@@ -20,7 +20,9 @@ package net.paissad.waqtsalat.service.utils;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -29,8 +31,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.paissad.waqtsalat.service.event.BasicProgressEvent;
+import net.paissad.waqtsalat.service.listener.ProgressListener;
 
 /**
  * @author Papa Issa DIAKHATE (paissad)
@@ -50,15 +56,14 @@ public class CommonUtils {
      * @return The extension with the dot included, or <code>null</code> if the
      *         filename is null, or an empty String if the file has no
      *         extension.
+     * @throws IllegalArgumentException If the file's name is null.
      */
-    public static String getFilenameExtension(final String filename) {
+    public static String getFilenameExtension(final String filename) throws IllegalArgumentException {
         if (filename == null) {
-            return null;
+            throw new IllegalArgumentException("The name of the file may not be null.");
         }
-        Pattern pattern = Pattern.compile("\\.[^\\.]*$");
-        Matcher matcher = pattern.matcher(filename);
-        int count = matcher.groupCount();
-        return (matcher.find()) ? matcher.group(count) : "";
+        int lastIndexOfDot = filename.lastIndexOf(".");
+        return filename.substring(lastIndexOfDot + 1);
     }
 
     // _________________________________________________________________________
@@ -210,6 +215,45 @@ public class CommonUtils {
                 closeable.close();
         } catch (IOException ioe) {
             // ioe.printStackTrace(System.err);
+        }
+    }
+
+    /**
+     * Copies an <tt>InputStream</tt> to an <tt>OutputStream</tt> using a
+     * {@link ProgressListener} if not <tt>null</tt>.
+     * <p>
+     * <b>NOTE</b>: The streams are not closed here.
+     * </p>
+     * 
+     * @param in - the <code>InputStream</code> to read from
+     * @param out - the <code>OutputStream</code> to write to
+     * @param progressListener - The listener to use if not {@code null}.
+     * @throws IOException
+     */
+    public static void copyStream(
+            final InputStream in,
+            final OutputStream out,
+            final ProgressListener progressListener) throws IOException {
+
+        if (in == null) {
+            throw new IllegalArgumentException("The intpustream may not be null.");
+        }
+        if (out == null) {
+            throw new IllegalArgumentException("The outputstream may not be null.");
+        }
+
+        if (progressListener == null) {
+            IOUtils.copy(in, out);
+        } else {
+            final int buffer = 4096;
+            final byte[] data = new byte[buffer];
+            int bytesRead = 0;
+            BasicProgressEvent event = new BasicProgressEvent(in.available(), bytesRead);
+            while ((bytesRead = in.read(data, 0, buffer)) > 0) {
+                out.write(data, 0, bytesRead);
+                event.add(bytesRead);
+                progressListener.onProgress(event);
+            }
         }
     }
 }

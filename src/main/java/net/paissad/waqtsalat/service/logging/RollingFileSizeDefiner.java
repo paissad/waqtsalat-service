@@ -39,8 +39,7 @@ public class RollingFileSizeDefiner extends PropertyDefinerBase {
     }
 
     /**
-     * @param maxSize
-     *            - The maximum size of the log file before
+     * @param maxSize - The maximum size of the log file before
      *            rolling.<b>Example</b>: 5MB
      * @see LogReloader#reload()
      */

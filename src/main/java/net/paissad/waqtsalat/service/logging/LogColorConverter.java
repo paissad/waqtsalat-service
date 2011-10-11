@@ -17,10 +17,10 @@
 
 package net.paissad.waqtsalat.service.logging;
 
-import static net.paissad.waqtsalat.service.AnsiTermColors.BOLD;
-import static net.paissad.waqtsalat.service.AnsiTermColors.RED_COLOR;
-import static net.paissad.waqtsalat.service.AnsiTermColors.RESET_COLOR;
-import static net.paissad.waqtsalat.service.AnsiTermColors.YELLOW_COLOR;
+import static net.paissad.waqtsalat.service.logging.AnsiTermColors.BOLD;
+import static net.paissad.waqtsalat.service.logging.AnsiTermColors.RED_COLOR;
+import static net.paissad.waqtsalat.service.logging.AnsiTermColors.RESET_COLOR;
+import static net.paissad.waqtsalat.service.logging.AnsiTermColors.YELLOW_COLOR;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -93,9 +93,8 @@ public class LogColorConverter extends ClassicConverter {
      * function in order to make changes effective.
      * </p>
      * 
-     * @param useColor
-     *            - Whether or not to use the color. Set to <code>true</code> in
-     *            order to use color in STDOUT.
+     * @param useColor - Whether or not to use the color. Set to
+     *            <code>true</code> in order to use color in STDOUT.
      * @see LogReloader#reload()
      */
     public static void setUseColor(boolean useColor) {

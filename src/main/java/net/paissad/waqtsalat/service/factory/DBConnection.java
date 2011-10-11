@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.paissad.waqtsalat.service.utils.JDBCUtils;
+import net.paissad.waqtsalat.service.utils.JdbcUtils;
 
 /**
  * @author Papa Issa DIAKHATE (paissad)
@@ -61,7 +61,7 @@ public class DBConnection {
         } catch (SQLException sqle) {
             String errMsg = "Error while getting an instance of database connection.\n";
             logger.error(errMsg, sqle);
-            JDBCUtils.printSQLException(sqle);
+            JdbcUtils.printSQLException(sqle);
             throw new SQLException(errMsg, sqle);
         }
     }

@@ -78,6 +78,7 @@ import org.slf4j.LoggerFactory;
 
 import net.paissad.waqtsalat.service.WSConstants;
 import net.paissad.waqtsalat.service.exception.WSException;
+import net.paissad.waqtsalat.service.listener.ProgressListener;
 
 /**
  * @author paissad
@@ -139,9 +140,14 @@ public class HttpUtils {
      * 
      * @param url - The url from where to download the file.
      * @param destinationFile - Where to save the file.
+     * @param progressListener - The listener to use. If {@code null}, then no
+     *            listener will be used.
      * @throws WSException
      */
-    public static void downloadFile(final String url, final File destinationFile) throws WSException {
+    public static void downloadFile(
+            final String url,
+            final File destinationFile,
+            final ProgressListener progressListener) throws WSException {
 
         if (url == null) {
             throw new IllegalArgumentException("The URL of download may not be null.");
@@ -155,9 +161,7 @@ public class HttpUtils {
         try {
             in = sendRequest(url, RequestType.GET);
             out = new BufferedOutputStream(new FileOutputStream(destinationFile));
-            if (in != null) {
-                IOUtils.copy(in, out);
-            }
+            CommonUtils.copyStream(in, out, progressListener);
 
         } catch (Exception e) {
             throw new WSException("Error while downloading file", e);

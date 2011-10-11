@@ -17,9 +17,11 @@
 
 package net.paissad.waqtsalat.service.utils;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 
 /**
@@ -31,6 +33,10 @@ public class WebXmlUtils {
     private WebXmlUtils() {
     }
 
+    /**
+     * @param servlet
+     * @return All the 'init-param' of the specified servlet.
+     */
     public static Map<String, String> getInitParameters(final HttpServlet servlet) {
         Map<String, String> result = new HashMap<String, String>();
         while (servlet.getInitParameterNames().hasMoreElements()) {
@@ -39,8 +45,20 @@ public class WebXmlUtils {
         }
         return result;
     }
-    
+
+    /**
+     * @param servlet
+     * @return All the 'context-param' of the specified servlet.
+     */
     public static Map<String, String> getContextParameters(final HttpServlet servlet) {
-        return null; // TODO
+        Map<String, String> result = new HashMap<String, String>();
+        ServletContext context = servlet.getServletContext();
+        Enumeration<String> initParamNames = context.getInitParameterNames();
+        while (initParamNames.hasMoreElements()) {
+            String initParamName = initParamNames.nextElement();
+            String initParamValue = context.getInitParameter(initParamName);
+            result.put(initParamName, initParamValue);
+        }
+        return result;
     }
 }

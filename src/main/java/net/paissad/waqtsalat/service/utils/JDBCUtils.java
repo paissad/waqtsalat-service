@@ -26,7 +26,7 @@ import java.sql.Statement;
  * @author Papa Issa DIAKHATE (paissad)
  * 
  */
-public class JDBCUtils {
+public class JdbcUtils {
 
     /**
      * @param objects The entities to close. May be (Connection, ResultSet,

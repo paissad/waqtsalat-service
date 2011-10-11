@@ -1,0 +1,4 @@
+Verify tha the h2 maven artifactId is copied to WEB-INF/lib/ during the build
+At the moment this notice is written, the lib is not copied ...
+
+What the heck is this directory .metadat/ ???

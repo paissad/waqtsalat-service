@@ -51,7 +51,7 @@ public class HttpUtilsTest {
         File destinationFile = null;
         try {
             destinationFile = File.createTempFile("gpl", ".txt", null);
-            HttpUtils.downloadFile(LICENSE_GPL_URL, destinationFile);
+            HttpUtils.downloadFile(LICENSE_GPL_URL, destinationFile, null);
             Assert.assertNotNull(destinationFile);
             Assert.assertTrue(destinationFile.exists());
         } finally {

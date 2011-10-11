@@ -17,6 +17,7 @@
 
 package net.paissad.waqtsalat.service;
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -36,12 +37,13 @@ public interface WSConstants {
                                               .append(WS_MICRO_VERSION)
                                               .toString();
 
-    String WS_DESCRIPTION             = "Application for computing muslim pray times in many cities.";
+    String WS_DESCRIPTION             = "A webservice which returns muslim prayers times of most cities/countries in JSON or XML format.";
     String WS_AUTHOR                  = "Papa Issa DIAKHATE (paissad)";
     String WS_COPYRIGHT               = "Copyright (C) 2011 " + WS_AUTHOR;
 
     // Logger settings ...
     String WS_DEFAULT_LOG_FILENAME    = "waqtsalat-service.log";
+    File   WS_DEFAULT_LOG_DIR         = new File(System.getProperty("java.io.tmpdir"), "waqtsalat-service/logs");
     String WS_DEFAULT_MAX_LOG_SIZE    = "10MB";
 
     // System specifics settings ...

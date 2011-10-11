@@ -21,6 +21,8 @@ import java.io.File;
 
 import ch.qos.logback.core.PropertyDefinerBase;
 
+import net.paissad.waqtsalat.service.WSConstants;
+
 /**
  * This class defines the directory where to place the log file.
  * 
@@ -38,51 +40,36 @@ public class LogDirDefiner extends PropertyDefinerBase {
      */
     @Override
     public String getPropertyValue() {
-
-        String sysTempDirName = System.getProperty("java.io.tmpdir");
-        String homeDir = System.getProperty("user.home");
-
         try {
-            // Try to use the specified log directory.
             if (logDir != null) {
-                if (!logDir.exists())
+                if (!logDir.exists()) {
                     logDir.mkdirs();
-                if (logDir.isDirectory())
+                }
+                if (logDir.isDirectory()) {
                     return logDir.getAbsolutePath();
-                // If logDir is a file, then try further approaches !
+                }
             }
-
-            // Otherwise, try to use a specified-user directory into system
-            // home directory.
-            File dir = new File(homeDir, ".jcamstream" + File.separator + "logs");
-            dir.mkdirs();
-            if (dir.isDirectory() && dir.canWrite()) {
-                logDir = dir;
-                return dir.getAbsolutePath();
+            WSConstants.WS_DEFAULT_LOG_DIR.mkdirs();
+            if (WSConstants.WS_DEFAULT_LOG_DIR.exists()) {
+                return WSConstants.WS_DEFAULT_LOG_DIR.getAbsolutePath();
             }
-
         } catch (Exception e) {
-            // Do nothing !
         }
-
-        // If previous tries failed, then use the system temporary directory !
-        logDir = new File(sysTempDirName);
-        return sysTempDirName;
+        return System.getProperty("java.io.tmpdir");
     }
 
     /**
      * Sets the directory where to place the log file.
      * <p>
-     * <b>Note</b>: Do not forget to reload the logger after the use of this
+     * <b>NOTE</b>: Do not forget to reload the logger after the use of this
      * function in order to make changes effective.
      * </p>
      * 
-     * @param logDir
-     *            - The directory where to place the log file.
+     * @param logDir - The directory where to place the log file.
      * 
      * @see LogReloader#reload()
      */
-    public static void setLogDir(File logDir) {
+    public static void setLogDir(final File logDir) {
         LogDirDefiner.logDir = logDir;
     }
 

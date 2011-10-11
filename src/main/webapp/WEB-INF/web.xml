@@ -1,7 +1,67 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  id="WebApp_ID" version="2.5">
 
-<web-app>
   <display-name>WaqtSalat WebService</display-name>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.xhtml</welcome-file>
+    <welcome-file>index.jsf</welcome-file>
+  </welcome-file-list>
+
+  <context-param>
+    <description>The directory where to place the log file.</description>
+    <param-name>log.dir</param-name>
+    <param-value>/tmp/waqtsalat-service</param-value>
+  </context-param>
+
+  <context-param>
+    <description>The name of the log file.</description>
+    <param-name>log.filename</param-name>
+    <param-value>waqtsalat-service.log</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>debug</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
+  <!-- <context-param> -->
+  <!-- <param-name>javax.faces.DEFAULT_SUFFIX</param-name> -->
+  <!-- <param-value>.xhtml</param-value> -->
+  <!-- </context-param> -->
+
+  <!-- Change to "Production" when you are ready to deploy -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
+  <context-param>
+    <description>This contains the customs JSF UI components of the project</description>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/META-INF/waqtsalat-service.taglib.xml</param-value>
+  </context-param>
+
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- <servlet-mapping> -->
+  <!-- <servlet-name>Faces Servlet</servlet-name> -->
+  <!-- <url-pattern>/faces/*</url-pattern> -->
+  <!-- </servlet-mapping> -->
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+
 </web-app>
