@@ -23,8 +23,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import net.paissad.waqtsalat.service.I18N;
+import net.paissad.waqtsalat.service.dao.UserDAO;
 
 /**
  * @author paissad
@@ -32,33 +39,31 @@ import net.paissad.waqtsalat.service.I18N;
  */
 @ManagedBean(name = "user")
 @SessionScoped
-public class UserBean implements Serializable {
+@Entity
+@Table(name = "ws_users", uniqueConstraints = @UniqueConstraint(columnNames = { "NICKNAME", "EMAIL" }))
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String            firstName;
-    private String            lastName;
+    @Id
+    @GeneratedValue
+    @SuppressWarnings("unused")
+    private int               id;
     private String            nickName;
     private String            email;
     private String            password;
 
-    public UserBean() {
+    @Transient
+    private UserDAO           userDAO;
+
+    public User() {
+        this(null, null);
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public User(final String nickName, final String email) {
+        this.nickName = nickName;
+        this.email = email;
+        this.userDAO = new UserDAO();
     }
 
     public String getNickName() {
@@ -86,9 +91,13 @@ public class UserBean implements Serializable {
     }
 
     public void register() {
-        // XXX
-        System.out.println("The user " + getFirstName() + " " + getLastName() + " is registered successfully !");
-        FacesContext.getCurrentInstance().addMessage("register", new FacesMessage(I18N.getString("Registered_successfuly")));
+        this.userDAO.create(this);
+        FacesContext.getCurrentInstance().addMessage("register",
+                new FacesMessage(I18N.getString("Registered_successfuly")));
     }
 
+    @Override
+    public String toString() {
+        return this.getNickName() + " - " + this.getEmail();
+    }
 }

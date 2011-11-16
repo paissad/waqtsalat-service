@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<waqtsalat-service version="1.0" xmlns="http://paissad.github.com/waqtsalat-service" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://paissad.github.com/waqtsalat-service xsd/ws_service_conf_1.0.xsd ">
+
+  <db_conf>
+    <db_type>mysql</db_type>
+    <db_name>ws_service_test</db_name>
+    <db_host>localhost</db_host>
+    <db_port>3306</db_port>
+    <db_user>root</db_user>
+    <db_password><![CDATA[root]]></db_password>
+  </db_conf>
+
+</waqtsalat-service>

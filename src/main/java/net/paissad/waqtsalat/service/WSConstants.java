@@ -82,12 +82,18 @@ public interface WSConstants {
     String GEOIP_WORLDCITIES_FILENAME = "worldcitiespop.txt";
     String GEOIP_WORLDCITIES_URL      = "http://www.maxmind.com/download/worldcities/"
                                               + GEOIP_WORLDCITIES_FILENAME + ".gz";
-    String WORLDCITIES_TABLE_NAME     = "WORLDCITIES";
+    String WORLDCITIES_TABLE_NAME     = "WS_WORLDCITIES";
     String WORLDCITIES_CSV_FILENAME   = "extras/geoip/" + GEOIP_WORLDCITIES_FILENAME;
     double LATITUDE_MAKKAH            = 21.42738;
     double LONGITUDE_MAKKAH           = 39.81484;
 
     // Lucene settings ...
     String LUCENE_INDEX_PATH          = "extras/geoip/lucene-index";
+
+    /**
+     * The default namespace the for the xml configuration file of the
+     * application
+     */
+    String NAMESPACE_CONF             = "http://paissad.github.com/waqtsalat-service";
 
 }

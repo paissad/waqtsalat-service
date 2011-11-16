@@ -1,0 +1,9 @@
+# This should contains all table names that are into the database.
+# Note: one table name per line
+# Lines beginning with '#' character or empty lines are not considered
+
+ws_users
+ws_roles
+ws_users_roles
+ws_worldcities
+

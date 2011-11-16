@@ -25,21 +25,15 @@ import static net.paissad.waqtsalat.service.WSConstants.WORLDCITIES_TABLE_NAME;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.paissad.waqtsalat.service.Coordinates;
 import net.paissad.waqtsalat.service.factory.DBConnection;
-import net.paissad.waqtsalat.service.utils.CommonUtils;
 import net.paissad.waqtsalat.service.utils.JdbcUtils;
 
 /**
@@ -85,12 +79,6 @@ public class WorldCitiesDB {
     private static final String SQL_UPDATE_COUNTRY_CODE = new StringBuilder()
                                                                 .append("UPDATE ").append(WORLDCITIES_TABLE_NAME)
                                                                 .append(" SET country_code = UPPER(country_code);")
-                                                                .toString();
-
-    private static final String SQL_UPDATE_COUNTRY_NAME = new StringBuilder()
-                                                                .append("UPDATE ")
-                                                                .append(WORLDCITIES_TABLE_NAME)
-                                                                .append(" SET country_name = ? WHERE country_code LIKE ?;")
                                                                 .toString();
 
     // =========================================================================
@@ -143,64 +131,7 @@ public class WorldCitiesDB {
     }
 
     // =========================================================================
-
-    /**
-     * Update the country names entries of the database using the default
-     * {@link Locale}.
-     * 
-     * @throws SQLException
-     */
-    public void updateTableCountryName() throws SQLException {
-        updateTableCountryName(Locale.getDefault());
-    }
-
-    // =========================================================================
-
-    /**
-     * Update the country names entries of the database using the specified
-     * {@link Locale}.
-     * 
-     * @param aLocale
-     *            The <code>Locale</code> to use.
-     * @throws SQLException
-     * 
-     */
-    public void updateTableCountryName(Locale aLocale) throws SQLException {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            conn = DBConnection.getInstance();
-            conn.setAutoCommit(false);
-            pstmt = conn.prepareStatement(SQL_UPDATE_COUNTRY_NAME);
-            Map<String, String> countries = CommonUtils.getCountries(aLocale);
-            Iterator<Entry<String, String>> it = countries.entrySet().iterator();
-            while (it.hasNext()) {
-                Entry<String, String> entry = it.next();
-                String cc = entry.getKey(); // cc like Country Code
-                pstmt.setString(1, countries.get(cc));
-                pstmt.setString(2, cc);
-                pstmt.addBatch();
-            }
-            pstmt.executeBatch();
-            logger.info("Finished updating the country names into table '{}' using Locale '{}'.",
-                    WORLDCITIES_TABLE_NAME, aLocale.getDisplayName());
-
-            conn.commit();
-
-        } catch (SQLException sqle) {
-            String errMsg = "Error while updating names of countries into the database.\n";
-            logger.error(errMsg, sqle);
-            JdbcUtils.printSQLException(sqle);
-            throw new SQLException(errMsg, sqle);
-
-        } finally {
-            JdbcUtils.closeQuietly(conn);
-            JdbcUtils.closeQuietly(pstmt);
-        }
-    }
-
-    // =========================================================================
-
+    
     /**
      * @param country
      *            The country.

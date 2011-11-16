@@ -40,7 +40,7 @@ public class WebXmlUtils {
     public static Map<String, String> getInitParameters(final HttpServlet servlet) {
         Map<String, String> result = new HashMap<String, String>();
         while (servlet.getInitParameterNames().hasMoreElements()) {
-            String paramName = servlet.getInitParameter(servlet.getInitParameterNames().nextElement());
+            String paramName = servlet.getInitParameter((String) servlet.getInitParameterNames().nextElement());
             result.put(paramName, servlet.getInitParameter(paramName));
         }
         return result;
@@ -50,6 +50,7 @@ public class WebXmlUtils {
      * @param servlet
      * @return All the 'context-param' of the specified servlet.
      */
+    @SuppressWarnings("unchecked")
     public static Map<String, String> getContextParameters(final HttpServlet servlet) {
         Map<String, String> result = new HashMap<String, String>();
         ServletContext context = servlet.getServletContext();

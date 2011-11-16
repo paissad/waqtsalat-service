@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 public class I18N {
 
-    private static final String         BUNDLE_NAME     = "net.paissad.waqtsalat.service.i18n.messages";
+    private static final String         BUNDLE_NAME     = "i18n.messages";
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
     private I18N() {

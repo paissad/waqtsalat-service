@@ -3,10 +3,14 @@
   <namespace>http://waqtsalat-service.paissad.net</namespace>
   <tag>
     <tag-name>copyright</tag-name>
-    <source>copyright.xhtml</source>
+    <source>components/copyright.xhtml</source>
   </tag>
   <tag>
     <tag-name>logo</tag-name>
-    <source>logo.xhtml</source>
+    <source>components/logo.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>license</tag-name>
+    <source>components/license.xhtml</source>
   </tag>
 </facelet-taglib>
