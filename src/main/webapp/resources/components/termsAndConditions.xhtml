@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:x="http://waqtsalat-service.paissad.net">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+</h:head>
+
+<h:body>
+
+  <composite:interface>
+    <composite:attribute name="value" type="java.lang.String" default="#{i18n.Terms_and_conditions}" />
+    <composite:attribute name="closeButtonText" type="java.lang.String" default="#{i18n.Close}" />
+  </composite:interface>
+
+  <composite:implementation>
+    <a data-toggle="modal" href="#termsAndConditionsModal">#{cc.attrs.value}</a>
+    <!-- Modal -->
+    <div id="termsAndConditionsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="termsAndConditionsModalLabel"
+      aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="termsAndConditionsModalLabel">#{i18n.Terms_and_conditions}</h3>
+      </div>
+      <div class="modal-body">
+        <x:license />
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">#{cc.attrs.closeButtonText}</button>
+      </div>
+    </div>
+  </composite:implementation>
+
+</h:body>
+</html>

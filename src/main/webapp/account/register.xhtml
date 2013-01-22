@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:x="http://waqtsalat-service.paissad.net"
+  xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+  <title>WaqtSalat Service - #{i18n._registration_Registration}</title>
+</h:head>
+
+<h:body>
+
+  <ui:decorate template="/META-INF/templates/page_with_header_footer.xhtml">
+    <ui:define name="content">
+
+      <!-- ================================================================================================================== RESULT -->
+      <h:panelGroup layout="block" id="result" style="margin:15px auto 10px;" styleClass="alert alert-block alert-success"
+        rendered="#{accountRegistrationController.backupName != null and accountRegistrationController.backupEmail != null and not facesContext.validationFailed and not accountRegistrationController.errorOccured}">
+        <button value="#" class="close" data-dismiss="alert">&#215;</button>
+        <h4>#{i18n.Finished}</h4>
+        <h:outputFormat value="#{i18n.Registered_successfuly}">
+          <f:param value="#{accountRegistrationController.backupName}" />
+          <f:param value="#{accountRegistrationController.backupEmail}" />
+        </h:outputFormat>
+      </h:panelGroup>
+
+      <!-- ================================================================================================================ MESSAGES -->
+      <xcc:messages />
+
+      <!-- ======================================================================================================= REGISTRATION FORM -->
+
+      <h:form id="registrationForm" styleClass="form-horizontal" prependId="false">
+        <fieldset>
+          <legend>#{i18n._registration_Registration}</legend>
+
+          <!-- ============================================================================================================ USERNAME -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel for="username" styleClass="control-label capitalize_first_letter fieldAsterisk" value="#{i18n.username}" />
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:panelGroup layout="block" styleClass="input-prepend">
+                <h:panelGroup styleClass="add-on">
+                  <i class="icon-user" />
+                </h:panelGroup>
+                <h:inputText id="username" required="true" label="#{i18n.username_2}" placeholder="#{i18n.username_2}" styleClass="span3"
+                  value="#{accountRegistrationController.account.username}">
+                  <f:validator validatorId="usernameAvailabilityValidator" />
+                  <f:validateLength minimum="3" maximum="30" />
+                  <f:validateRegex pattern="^[\p{Alnum}\-_\.]{3,30}$" />
+                </h:inputText>
+                <h:outputText styleClass="help-inline" value="..." />
+              </h:panelGroup>
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- ============================================================================================================== E-MAIL -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel for="email" styleClass="control-label capitalize_first_letter fieldAsterisk" value="#{i18n.email}" />
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:panelGroup layout="block" styleClass="input-prepend">
+                <h:panelGroup styleClass="add-on">
+                  <i class="icon-envelope" />
+                </h:panelGroup>
+                <h:inputText id="email" label="#{i18n.email_2}" required="true" placeholder="#{i18n.email_2}" styleClass="span3"
+                  value="#{accountRegistrationController.account.email}">
+                  <f:validator validatorId="emailValidator" />
+                  <f:validator validatorId="emailAvailabilityValidator" />
+                </h:inputText>
+              </h:panelGroup>
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- ============================================================================================================ PASSWORD -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel for="password" styleClass="control-label capitalize_first_letter fieldAsterisk" value="#{i18n.password}" />
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:inputSecret id="password" label="#{i18n.password_2}" required="true" placeholder="#{i18n.password_2}"
+                styleClass="input-xlarge" value="#{accountRegistrationController.account.password}">
+                <f:validator validatorId="passwordValidator" />
+                <f:validateLength minimum="8" maximum="30" />
+                <f:attribute name="confirmPasswordComponent" value="#{confirm_password}" />
+              </h:inputSecret>
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- =============================================================================================== PASSWORD CONFIRMATION -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel for="confirm_password" styleClass="control-label capitalize_first_letter fieldAsterisk"
+              value="#{i18n._registration_Password_confirmation}" />
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:inputSecret id="confirm_password" label="#{i18n._registration_Password_confirmation}" binding="#{confirm_password}"
+                required="true" placeholder="#{i18n._registration_Password_confirmation}" styleClass="input-xlarge"
+                value="#{accountRegistrationController.passwordConfirmation}">
+              </h:inputSecret>
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- ============================================================================================================= CAPTCHA -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:panelGroup layout="block" styleClass="controls">
+              <xcc:captcha id="captcha" label="#{i18n._captcha_Captcha}" inputValue="#{accountRegistrationController.captchaValue}"
+                buttonText="#{i18n.Refresh}" buttonClass="btn" imageClass="img-rounded" placeholder="#{i18n._captcha_Enter_code}"
+                failureMessage="#{i18n._captcha_Validation_failed}" />
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- ================================================================================================ TERMS_AND_CONDITIONS -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:selectBooleanCheckbox id="terms" required="true" label="#{i18n.Terms_and_conditions}"
+                requiredMessage="#{i18n.You_must_accept_terms_and_conditions}"
+                value="#{accountRegistrationController.agreeTermsAndConditions}">
+                <f:validator validatorId="omnifaces.RequiredCheckboxValidator" />
+              </h:selectBooleanCheckbox>
+              <h:outputText style="margin-left:5px;" value="#{i18n.I_agree_with_the_terms_and_conditions} " />
+              <xcc:termsAndConditions value=" #{i18n.Click_here}" />
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- =========================================================================================== CANCEL AND SUBMIT BUTTONS -->
+
+          <h:panelGroup layout="block" styleClass="control-group">
+            <h:panelGroup layout="block" styleClass="controls">
+              <h:commandButton id="cancelButton" style="margin-right:3px;" styleClass="btn btn-inverse" type="reset" value="#{i18n.Cancel}"
+                action="#{accountRegistrationController.clear}" />
+              <h:commandButton styleClass="btn btn-success" type="submit" value="#{i18n.Submit}"
+                action="#{accountRegistrationController.register}" />
+            </h:panelGroup>
+          </h:panelGroup>
+
+          <!-- ============================================================================================================== NOTICE -->
+
+          <h:outputText value="" styleClass="fieldAsterisk" />
+          <h:outputText value="#{i18n.field_required}." styleClass="notice" />
+
+        </fieldset>
+      </h:form>
+
+    </ui:define>
+  </ui:decorate>
+
+</h:body>
+
+</html>

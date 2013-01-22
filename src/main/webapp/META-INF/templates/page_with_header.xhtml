@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+</h:head>
+<h:body>
+
+  <ui:composition>
+    <ui:insert name="header">
+      <!-- ================================================================================================================== HEADER -->
+
+      <h:panelGroup layout="block" styleClass="navbar navbar-inverse navbar-fixed-top">
+        <h:panelGroup layout="block" styleClass="navbar-inner">
+          <h:panelGroup layout="block" styleClass="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+              class="icon-bar"></span> <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#{request.contextPath}/">WaqtSalat Service</a>
+            <h:panelGroup layout="block" styleClass="nav-collapse collapse">
+              <ul class="nav">
+                <li><h:link value="#{i18n.Home}" outcome="/index" /></li>
+                <li><h:link value="#{i18n.About}" outcome="/about" /></li>
+                <li><h:link value="#{i18n.Contact}" outcome="/contact" /></li>
+              </ul>
+
+              <!-- ==================================================================================================== SIGN_IN_FORM -->
+              <h:panelGroup rendered="#{not accountLoginController.connected}">
+                <a data-toggle="modal" href="#__modal_commonSignIn_GLOBAL" class="btn btn-small pull-right">#{i18n._login_Sign_in}</a>
+              </h:panelGroup>
+
+              <!-- =================================================================================================== SIGN_OUT_FORM -->
+              <h:form id="signOutForm" prependId="false" styleClass="navbar-form pull-right" rendered="#{accountLoginController.connected}">
+                <h:commandButton value="#{i18n._login_Sign_out}" styleClass="btn btn-small" action="#{accountLoginController.signOut}" />
+              </h:form>
+
+              <!-- =================================================================================================== REGISTER_FORM -->
+              <h:form id="registerForm" prependId="false" styleClass="navbar-form pull-left"
+                rendered="#{not accountLoginController.connected}">
+                <h:link value="#{i18n.Register}" styleClass="btn btn-small" outcome="/account/register" />
+              </h:form>
+            </h:panelGroup>
+          </h:panelGroup>
+        </h:panelGroup>
+      </h:panelGroup>
+
+      <ui:include src="/META-INF/templates/commonSignInModal.xhtml" />
+
+    </ui:insert>
+  </ui:composition>
+
+</h:body>
+</html>

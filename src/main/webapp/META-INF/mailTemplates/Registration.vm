@@ -1,0 +1,29 @@
+<html>
+<head>
+<style>
+p {
+ font-family: Verdana;
+}
+</style>
+</head>
+
+<body>
+<p>Welcome $username,</p>
+
+<p>You registered to WaqtSalat-Service.</p>
+
+<p>
+Click on the following link in order to activate your account. <a href="$applicationURL/account/activate.jsf?activationKey=$activationKey">Activate my account</a>.
+</p>
+
+<p>
+If that does not work, you can copy and paste the complete url in your web browser.<br>
+$applicationURL/account/activate.jsf?activationKey=$activationKey
+</p>
+
+<p>
+Thanks in advance!
+</p>
+
+</body>
+

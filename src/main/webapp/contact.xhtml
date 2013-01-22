@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+  <title>WaqtSalat-Service - #{i18n._contact_Contact_Us}</title>
+</h:head>
+
+<h:body>
+
+  <ui:decorate template="/META-INF/templates/page_with_header_footer.xhtml">
+    <ui:define name="content">
+      <!-- =============================================================================================================== RESULT -->
+      <h:panelGroup layout="block" id="result" style="margin : 15px auto;" styleClass="alert alert-block alert-success"
+        rendered="#{contactController.backupName != null and facesContext.postback and not facesContext.validationFailed and not contactController.errorOccured}">
+        <button value="#" class="close" data-dismiss="alert">&#215;</button>
+        <h4>#{i18n._contact_Sent}</h4>
+        <h:outputFormat value="#{i18n._contact_message_sent}">
+          <f:param value="#{contactController.backupName}" />
+        </h:outputFormat>
+      </h:panelGroup>
+      <!-- ========================================================================================================= CONTACT_FORM -->
+      <fieldset>
+        <xcc:messages id="messages" />
+        <legend>#{i18n._contact_Contact_Us}</legend>
+        <h:form id="contactForm" prependId="false" styleClass="form-horizontal">
+          <fieldset>
+            <!-- =========================================================================================================== NAME -->
+            <h:inputText id="name" required="true" requiredMessage="#{i18n._contact_Name_is_required}"
+              styleClass="input-xlarge fieldAsterisk_2" placeholder="#{i18n.Name}" value="#{contactController.name}" />
+            <br />
+            <!-- ========================================================================================================= E-MAIL -->
+            <h:inputText id="email" required="true" requiredMessage="#{i18n._contact_Email_is_required}"
+              styleClass="input-xlarge fieldAsterisk_2" placeholder="#{i18n.email_2}" value="#{contactController.email}">
+              <f:validator validatorId="emailValidator" />
+            </h:inputText>
+            <br />
+            <!-- ==================================================================================================== DESCRIPTION -->
+            <h:outputFormat styleClass="notice" value="#{i18n._contact_Description_must_not_exceed_max_characters}">
+              <f:param value="500" />
+            </h:outputFormat>
+            <br />
+            <h:inputTextarea id="description" required="true" style="margin-bottom:5px;"
+              requiredMessage="#{i18n._contact_Description_is_required}" styleClass="input-xxlarge fieldAsterisk_2 maxLength_500"
+              placeholder="#{i18n.Description}" rows="5" value="#{contactController.description}">
+              <f:validateLength maximum="500" />
+            </h:inputTextarea>
+            <br />
+            <!-- =================================================================================================== RECEIVE COPY -->
+            <h:selectBooleanCheckbox id="receiveCopy" style="margin-bottom:5px;" value="#{contactController.receiveCopy}" />
+            <h:outputText style="margin-left:5px;" value="#{i18n._contact_receive_message_copy}" />
+            <br />
+            <!-- ======================================================================================================== CAPTCHA -->
+            <xcc:captcha id="captcha" label="#{i18n._captcha_Captcha}" inputClass="fieldAsterisk_2" buttonText="#{i18n.Refresh}"
+              buttonClass="btn" imageClass="img-rounded " placeholder="#{i18n._captcha_Enter_code}"
+              failureMessage="#{i18n._captcha_Validation_failed}" inputValue="#{contactController.captchaValue}" />
+            <br /> <br />
+            <!-- ======================================================================================= RESET AND SUBMIT BUTTONS -->
+            <h:commandButton id="resetButton" type="reset" styleClass="btn pull-left" value="#{i18n.Clear}"
+              action="#{contactController.clear}" />
+            <h:commandButton id="submitButton" style="margin-left:3px;" type="submit" styleClass="btn btn-warning" value="#{i18n.Send}"
+              action="#{contactController.sendMessage}">
+            </h:commandButton>
+          </fieldset>
+          <br />
+          <!-- =========================================================================================================== NOTICE -->
+          <h:outputText styleClass="fieldAsterisk" value="" />
+          <h:outputText styleClass="notice" value="#{i18n.field_required}" />
+        </h:form>
+      </fieldset>
+    </ui:define>
+  </ui:decorate>
+
+</h:body>
+</html>

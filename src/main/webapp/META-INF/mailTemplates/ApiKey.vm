@@ -1,0 +1,19 @@
+<html>
+<head>
+<style>
+p {
+ font-family: Verdana;
+}
+</style>
+</head>
+<body>
+<p>Hello $username,</p>
+
+<p>
+Here is your API key $apiKey for <a href='$applicationURL'>WaqtSalat-Service</a>. 
+</p>
+
+<p>
+Thanks in advance!
+</p>
+</body>

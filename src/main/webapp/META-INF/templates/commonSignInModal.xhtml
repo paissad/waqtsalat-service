@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+</h:head>
+<h:body>
+
+  <ui:composition>
+    <ui:insert name="signIn">
+      <div class="modal hide fade" id="__modal_commonSignIn_GLOBAL">
+
+        <h:panelGroup layout="block" styleClass="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&#215;</button>
+          <h4>#{i18n._login_Login_to_website}</h4>
+        </h:panelGroup>
+
+        <!-- =========================================================================================================== MESSAGES -->
+        <xcc:messages id="__modal_commonSignIn_messages" />
+
+        <h:panelGroup layout="block" styleClass="modal-body" style="text-align: center;">
+          <h:panelGroup layout="block" styleClass="row-fluid">
+            <h:panelGroup layout="block" styleClass="span10 offset1">
+              <h:panelGroup layout="block" id="modalTab">
+                <h:panelGroup layout="block" styleClass="tab-content">
+
+                  <!-- ============================================================================================= SIGN_IN_FORM -->
+                  <h:panelGroup layout="block" styleClass="tab-pane active" id="__modal_commonSignIn_login">
+                    <h:form id="__modal_commonSignIn_signInForm" prependId="false">
+                      <p>
+                        <h:inputText id="__modal_commonSignIn_email" required="true" label="#{i18n.email_2}" styleClass="span12"
+                          placeholder="#{i18n.email_2}" value="#{accountLoginController.account.email}">
+                          <f:validator validatorId="emailValidator" />
+                        </h:inputText>
+                      </p>
+                      <p>
+                        <h:inputSecret id="__modal_commonSignIn_password" required="true" label="#{i18n.password_2}" styleClass="span12"
+                          placeholder="#{i18n.password_2}" value="#{accountLoginController.account.password}" />
+                      </p>
+                      <p>
+                        <h:commandButton id="__modal_commonSignIn_signInButton" type="submit" styleClass="btn btn-primary"
+                          value="#{i18n._login_Sign_in}" action="#{accountLoginController.signIn}" />
+                        <a style="margin-left: 4px;" href="#__modal_commonSignIn_forgotpassword" data-toggle="tab">#{i18n._login_Password_forgotten}</a>
+                      </p>
+                    </h:form>
+                  </h:panelGroup>
+
+                  <!-- ==================================================================================== RECOVER_PASSWORD_FORM -->
+                  <h:panelGroup layout="block" styleClass="tab-pane fade" id="__modal_commonSignIn_forgotpassword">
+                    <h:form id="__modal_commonSignIn_recoverPasswordForm" prependId="false">
+                      <p>#{i18n._login_Send_us_your_mail_for_forgotten_password}</p>
+                      <h:inputText id="__modal_commonSignIn_email_forgotten" required="true" styleClass="span12" label="#{i18n.email_2}"
+                        placeholder="#{i18n.email_2}" value="#{accountLoginController.emailForForgottenPass}">
+                        <f:validator validatorId="emailValidator" />
+                        <f:validator validatorId="emailMustBeRegisteredValidator" />
+                      </h:inputText>
+                      <p>
+                        <h:commandButton id="__modal_commonSignIn_passwordForgottenButton" type="submit" styleClass="btn btn-primary"
+                          value="#{i18n.Submit}" action="#{accountLoginController.processForgottenPassword}" />
+                        <a style="margin-left: 4px;" href="#__modal_commonSignIn_login" data-toggle="tab">#{i18n._login_Password_remember}</a>
+                      </p>
+                    </h:form>
+                  </h:panelGroup>
+
+                </h:panelGroup>
+              </h:panelGroup>
+            </h:panelGroup>
+          </h:panelGroup>
+        </h:panelGroup>
+      </div>
+    </ui:insert>
+  </ui:composition>
+</h:body>
+</html>

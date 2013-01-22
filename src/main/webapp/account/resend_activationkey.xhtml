@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+  <title>WaqtSalat-Service - #{i18n._activation_ActivationKey_resend}</title>
+</h:head>
+<h:body>
+
+  <ui:decorate template="/META-INF/templates/page_with_header_footer.xhtml">
+    <ui:define name="content">
+
+      <xcc:messages id="messages" />
+
+      <!-- ========================================================================================== ACCOUNT ALREADY ACTIVATED -->
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block"
+        rendered="#{accountResendActivationKeyController.accountAlreadyActivated}">
+        <button value="#" class="close" data-dismiss="alert">&#215;</button>
+        <h4>#{i18n.Warning}</h4>
+        <h:outputText value="#{i18n._activation_Already_activated}" />
+      </h:panelGroup>
+
+      <!-- ========================================================================================================== OK RESULT -->
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block alert-success"
+        rendered="#{not accountResendActivationKeyController.accountAlreadyActivated and accountResendActivationKeyController.emailForActivationResend != null and facesContext.postback and not facesContext.validationFailed}">
+        <button value="#" class="close" data-dismiss="alert">&#215;</button>
+        <h4>#{i18n.Sent}</h4>
+        <h:outputText value="#{i18n._activation_Key_is_resent}" />
+      </h:panelGroup>
+
+      <!-- ======================================================================================== RE-SEND ACTIVATION KEY FORM -->
+      <h:form id="sendActivationKeyForm" prependId="false" styleClass="form-horizontal">
+        <br />
+        <fieldset>
+          <legend>#{i18n._activation_ActivationKey_resend}</legend>
+          <h:inputText id="email" required="true" label="#{i18n.email_2}" styleClass="input-xlarge" placeholder="#{i18n.email_2}"
+            value="#{accountResendActivationKeyController.emailForActivationResend}">
+            <f:validator validatorId="emailValidator" />
+            <f:validator validatorId="emailMustBeRegisteredValidator" />
+          </h:inputText>
+          <h:commandButton id="sendButton" type="submit" style="margin:auto 3px;" styleClass="btn btn-warning" value="#{i18n.Send}"
+            action="#{accountResendActivationKeyController.resendActivationKey}" />
+        </fieldset>
+      </h:form>
+
+    </ui:define>
+  </ui:decorate>
+
+</h:body>
+</html>

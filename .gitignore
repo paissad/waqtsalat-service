@@ -4,3 +4,6 @@
 target
 worldcitiespop.txt*
 /.settings/
+.metadata
+.faces-config.xml.jsfdia
+

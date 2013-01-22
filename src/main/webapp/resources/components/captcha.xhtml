@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:composite="http://java.sun.com/jsf/composite">
+<h:body>
+
+  <composite:interface>
+
+    <composite:attribute name="id" type="java.lang.String" shortDescription="(optional) The id of the component." />
+
+    <composite:attribute name="label" type="java.lang.String" shortDescription="(optional) The label of the component." />
+
+    <composite:attribute name="imageWidth" type="java.lang.Integer" shortDescription="(optional) The width of the Captcha image." />
+
+    <composite:attribute name="imageHeight" type="java.lang.Integer" shortDescription="(optional) The height of the Captcha image." />
+
+    <composite:attribute name="imageClass" type="java.lang.String" shortDescription="(optional) The space separated list of style class" />
+
+    <composite:attribute name="showButton" type="java.lang.Boolean" default="true"
+      shortDescription="(optional) Whether or not to show the button which refresh the image. The default value is 'true'." />
+
+    <composite:attribute name="buttonText" type="java.lang.String" default="" shortDescription="(optional) The text to show in the button." />
+
+    <composite:attribute name="buttonImage" type="java.lang.String" default=""
+      shortDescription="(optional) Absolute or relative URL of the image to be displayed for the button." />
+
+    <composite:attribute name="buttonClass" type="java.lang.String" default=""
+      shortDescription="(optional) The separated class styles to apply to the button." />
+
+    <composite:attribute name="inputValue" type="java.lang.String" default=""
+      shortDescription="(optinal) The entered captcha value of this component." />
+
+    <composite:attribute name="inputClass" type="java.lang.String" default=""
+      shortDescription="(optional) The separated class styles to apply to the input text field." />
+
+    <composite:attribute name="placeholder" type="java.lang.String" default="" />
+
+    <composite:attribute name="failureMessage" type="java.lang.String" default="Captcha validation failed"
+      shortDescription="(optional) The message that will be shown if ever the validation fails." />
+
+    <composite:editableValueHolder name="captchaText" />
+
+  </composite:interface>
+
+  <composite:implementation>
+    <h:inputText id="captchaText" required="true" label="#{not empty cc.attrs.label ? cc.attrs.label : component.clientId}"
+      styleClass="#{cc.attrs.inputClass}" placeholder="#{cc.attrs.placeholder}" autocomplete="off" value="#{cc.attrs.inputValue}">
+      <f:param id="failureMessageId" value="#{cc.attrs.failureMessage}" />
+      <f:validator validatorId="captchaValidator" />
+    </h:inputText>
+    <h:graphicImage id="captchaImage" alt="" style="margin-left:3px;" styleClass="#{cc.attrs.imageClass}" width="#{cc.attrs.imageWidth}"
+      height="#{cc.attrs.imageHeight}" value="/__captcha.jpg" />
+    <h:panelGroup rendered="#{cc.attrs.showButton != null and cc.attrs.showButton}">
+      <h:commandButton id="captchaButton" type="button" styleClass="#{cc.attrs.buttonClass}" image="#{cc.attrs.buttonImage}"
+        value="#{cc.attrs.buttonText}">
+        <f:ajax render="#{component.parent.namingContainer.clientId}:captchaImage" />
+      </h:commandButton>
+    </h:panelGroup>
+  </composite:implementation>
+
+</h:body>
+</html>

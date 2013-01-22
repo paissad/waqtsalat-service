@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:x="http://waqtsalat-service.paissad.net">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+</h:head>
+
+<h:body>
+
+  <ui:composition>
+    <!-- ==================================================================================================================== FOOTER -->
+
+    <x:copyright />
+    <h:outputText styleClass="divider" value=" " />
+
+    <h:outputLink value="#{request.contextPath}">Home</h:outputLink>
+    <h:outputText styleClass="divider" value=" " />
+
+    <h:outputLink value="#{request.contextPath}/legal/privacy_policy.jsf">Privacy Policy</h:outputLink>
+    <h:outputText styleClass="divider" value=" " />
+
+    <h:outputLink value="#{request.contextPath}/legal/terms_and_conditions.jsf">Terms and conditions</h:outputLink>
+
+  </ui:composition>
+
+</h:body>
+</html>

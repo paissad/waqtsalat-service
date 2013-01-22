@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head></h:head>
+<ui:include src="/META-INF/common/head_includes.xhtml" />
+<title>WaqtSalat-Service - #{i18n._activation_Account_activation}</title>
+<h:body>
+
+  <ui:decorate template="/META-INF/templates/page_with_header_footer.xhtml">
+    <ui:define name="content">
+
+      <xcc:messages id="messages" />
+
+      <!-- ================================================================================================= ACTIVATION SUCCESS -->
+
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block alert-success"
+        rendered="#{accountActivationController.valid}">
+        <h4>#{i18n.Finished}</h4>
+        <h:outputFormat value="#{i18n._activation_Successful_activation}">
+          <f:param value="#{accountActivationController.activatedUsername}" />
+        </h:outputFormat>
+        <br />
+        <h:outputText value="#{i18n._activation_Apikey_sent}" />
+      </h:panelGroup>
+
+
+      <!-- ================================================================================================== ACTIVATION FAILED -->
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block alert-error"
+        rendered="#{not accountActivationController.valid}">
+        <h4>#{i18n.Fail}</h4>
+        <h:outputText value="#{i18n._activation_Unsuccessful_activation}" />
+        <br />
+        <h:outputText value="#{i18n._activation_Resend_activation_key} " />
+        <h:link value="#{i18n.Click_here}" outcome="/account/resend_activationkey" />
+      </h:panelGroup>
+
+    </ui:define>
+  </ui:decorate>
+
+</h:body>
+</html>

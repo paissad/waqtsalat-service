@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:composite="http://java.sun.com/jsf/composite">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+</h:head>
+
+<h:body>
+
+  <composite:interface>
+    <composite:attribute name="id" />
+    <composite:attribute name="buttonClass" />
+    <composite:attribute name="buttonStyle" />
+  </composite:interface>
+
+  <composite:implementation>
+    <!-- ========================================================================================================== LOGIN MODAL -->
+    <a data-toggle="modal" href="#__loginModal" style="#{cc.attrs.buttonStyle}" class="#{cc.attrs.buttonClass}">#{i18n._login_Sign_in}</a>
+    <ui:include src="/META-INF/templates/commonSignIn.xhtml" />
+  </composite:implementation>
+
+</h:body>
+</html>

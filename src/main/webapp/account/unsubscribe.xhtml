@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:xcc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+  <ui:include src="/META-INF/common/head_includes.xhtml" />
+  <title>WaqtSalat-Service - #{i18n._unsubscribe_Unsubscribe}</title>
+</h:head>
+
+<h:body>
+  <ui:decorate template="/META-INF/templates/page_with_header_footer.xhtml">
+    <ui:define name="content">
+
+      <xcc:messages id="messages" />
+
+      <!-- ================================================================================================ UNSUBSCRIBE WARNING -->
+
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block"
+        rendered="#{not accountUnsubscribeController.connected}">
+        <h4>#{i18n.Warning}</h4>
+        <h:outputText value="#{i18n._unsubscribe_Must_be_connected_before}" />
+      </h:panelGroup>
+
+      <!-- ================================================================================================ UNSUBSCRIBE SUCCESS -->
+
+      <h:panelGroup layout="block" style="margin:15px auto;" styleClass="alert alert-block alert-success"
+        rendered="#{accountUnsubscribeController.successful}">
+        <h4>#{i18n.Done}</h4>
+        <h:outputText value="#{i18n._unsubscribe_Successful}" />
+      </h:panelGroup>
+
+    </ui:define>
+  </ui:decorate>
+</h:body>
+</html>

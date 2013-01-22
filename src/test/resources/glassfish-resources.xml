@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1
+  Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+
+<resources>
+  <jdbc-connection-pool name="__waqtsalat-service-Pool" res-type="javax.sql.ConnectionPoolDataSource"
+    datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" max-pool-size="5">
+
+    <property name="User" value="root" />
+    <property name="Password" value="root" />
+    <property name="ServerName" value="localhost" />
+    <property name="Port" value="3306" />
+    <property name="DatabaseName" value="waqtsalat-service" />
+    <!-- <property name="Url" value="jdbc:mysql://localhost:3306/waqtsalat-service" /> -->
+  </jdbc-connection-pool>
+
+  <jdbc-resource enabled="true" jndi-name="jdbc/__waqtsalat-service-datasource" object-type="user" pool-name="__waqtsalat-service-Pool">
+    <description>JDBC datasource for 'waqtsalat-service' web application.</description>
+  </jdbc-resource>
+
+</resources>
